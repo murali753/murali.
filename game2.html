@@ -1,0 +1,194 @@
+<html>
+<head>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/8.2.1/firebase-analytics.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+<style>
+body{
+font-family:hervicta,sans-serif,times;
+}
+.hide{
+display:none;
+}
+.show{
+display:block;
+}
+p{
+font-size:40px;
+position:relative;
+filter:brightness(100%);
+filter:grayscale(6%);
+}
+input{
+padding:19px;
+border-radius:20px;
+height:40px;
+width:49%;
+color:black;
+outline:none;
+border:none;
+}
+input[type=text]{
+box-shadow:1px 2px 20px lightseagreen;
+margin-top:20px;
+}
+input[type=submit],button{
+padding:15px;
+width:25%;
+max-width:29%;
+text-align:center;
+background-color:lightgreen;
+color:white;
+box-shadow:4px 4px 27px lightgreen;
+font-size:20px;
+font-weight:bold;
+border:none;
+outline:none;
+border-radius:14px;
+}
+button{
+    background-color:blueviolet;
+}
+button:hover{
+    box-shadow:1px 1px 30px blueviolet;
+    text-shadow:1px 1px 20px white;
+}
+input[type=submit]:active,button:active{
+    background-color:green;
+}
+span{
+font-size:89px;
+text-align:center;
+position:relative;
+text-shadow:0px 0px 16px powderblue;
+}
+.gradialcolor{
+ background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #ff0000), color-stop(0.5, #ffff00), color-stop(1.0, #00ff00));
+ background-image: gradient( linear, left top, right top, color-stop(0, #ff0000), color-stop(0.5, #ffff00), color-stop(1.0, #00ff00));
+ color:transparent;
+ background-clip: text;
+ -webkit-background-clip:text;
+}
+h2,h5{
+    font-size:30px;
+    position:relative;
+}
+h3{
+    right:30%;
+    font-size:38px;
+    position:relative;
+}
+h4{
+font-size:30px;
+text-shadow:1px 1px 30px lightsalmon;
+}
+h6{
+margin-bottom:18px;    
+margin-right:28%;
+position:relative;
+font-size:24px;
+}
+ul,li{
+    text-align:center;
+    display:inline-block;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    position:relative;
+    margin-bottom:25px;
+    font-size:large;
+}
+</style>
+</head>
+<body>
+<center>
+<h1 class="gradialcolor">Colour Game</h1>
+<h3 id="gameTime"class="hide">30</h3>
+<br>
+<h2 class="hide"id="score"style="margin-top:-6%;">Score</h2><span id="yourScore"class="gradialcolor">0</span>
+<button onclick="Startgame();RandomColor()"class="show"id="gameStart">start game</button>
+<h6 id="rule"class="show">Rules:</h6>
+<ul id="rule1"class="show">
+<li>Only type with small letters</li>
+<br>
+<li>Timing is 30 seconds only</li>
+</ul>
+<p id="text"></p>
+<input type="text"class="hide"id="colorInput">
+<h5 id="board"class="gradialcolor"class="hide"></h5>
+<h4 id="name"class="gradialColor"></h4>
+<button onclick="myfunction2();myfunction3();RandomColor();"class="hide"id="colorInputValid">submit</button>
+</center>
+<script>
+function Startgame() {
+alert("Your 30 second time is Start");
+var n=window.prompt("Enter you name");
+document.getElementById("gameStart").className="hide";
+document.getElementById("colorInput").className="show";
+document.getElementById("colorInputValid").className="show";
+document.getElementById("gameTime").className="show";
+document.getElementById("score").className="show";
+document.getElementById("rule").className="hide";
+document.getElementById("rule1").className="hide";
+var seconds=document.getElementById("gameTime").textContent;
+var second=setInterval(function(){
+seconds--;
+document.getElementById("gameTime").textContent=seconds;
+if(seconds<=0)
+{
+clearInterval(seconds);
+document.getElementById("colorInput").className="hide";
+document.getElementById("colorInputValid").className="hide";
+document.getElementById("text").className="hide";
+var b=document.getElementById("board");
+document.getElementById("name").innerHTML=n;
+if(score>=10)
+{
+b.innerHTML="Well played Great Score";
+}
+else if(score>=5){
+b.innerHTML="Nice played";
+}
+else{
+b.innerHTML="Nice try....<br>Keep play to get high score";
+}
+clearInterval(second);}},1000);
+}
+var color=["red","pink","green","orange","yellow","blue","lightgreen","viloet"];
+var colorLength=color.length;
+var randomcolor,randomtext;
+function RandomColor() {
+randomcolor=Math.floor(Math.random()*colorLength);
+randomtext=Math.floor(Math.random()*colorLength);
+var text=document.getElementById("text");
+text.innerHTML=color[randomcolor];
+text.style.color=color[randomtext];
+}
+var score=0;
+function myfunction2(){
+var inputColor=document.getElementById("colorInput").value;
+if(inputColor==color[randomtext]){
+score +=1;
+}
+else {
+score +=0;
+}
+let a=document.getElementById("yourScore");
+a.innerHTML=score;
+}
+function myfunction3(){
+document.getElementById("colorInput").value="";
+}
+var d=document.getElementById("colorInput");
+d.addEventListener("keyup",function(event){
+    if(event.keyCode===13 || event.keyCode===9 || event.keyCode==16){
+        document.getElementById("colorInputValid").click();
+    }
+});
+</script>
+</body>
+</html>
