@@ -1,0 +1,156 @@
+<html>
+<head>
+<style>
+body{
+font-family:hervicta,sans-serif,times;
+}
+.hide{
+display:none;
+}
+.show{
+display:block;
+}
+p{
+font-size:30px;
+text-shadow:1px 1px 15px powderblue;
+position:relative;
+filter:blur(1px);
+filter:grayscale(6%);
+float:center;
+}
+input{
+padding:19px;
+border-radius:20px;
+height:40px;
+width:60%;
+color:black;
+outline:none;
+border:none;
+margin-bottom:20px;
+}
+input[type=text]{
+box-shadow:1px 2px 20px powderblue;
+margin-top:20px;
+}
+input[type=submit]{
+padding:10px;
+background-color:blue;
+color:white;
+font-size:20px;
+width:65%;
+height:48px;
+border-radius:14px;
+}
+span{
+font-size:60px;
+text-align:center;
+position:relative;
+text-shadow:0px 0px 16px powderblue;
+}
+.gradialcolor{
+ background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #ff0000), color-stop(0.5, #ffff00), color-stop(1.0, #00ff00));
+ background-image: gradient( linear, left top, right top, color-stop(0, #ff0000), color-stop(0.5, #ffff00), color-stop(1.0, #00ff00));
+ color:transparent;
+ background-clip: text;
+ -webkit-background-clip:text;
+}
+h1{
+text-align:center;
+position:relative;
+}
+h2,h5{
+font-size:20px;
+margin-bottom:0px;
+text-align:center;
+}
+h4{
+font-size:30px;
+text-shadow:1px 1px 30px powderblue;
+}
+h6{
+text-align:left;
+position:left;
+font-size:20px;
+}
+</style>
+</head>
+<body>
+<h1 class="gradialcolor">Colour Game</h1>
+<p id="gameTime"class="hide">30</p>
+<h1 class="gradialcolor"onload="Date.now()"></h1>
+<center>
+<h2 class="hide"id="score">Score</h2><span id="yourScore"class="gradialcolor">0</span>
+<button onclick="Startgame();RandomColor()"class="show"id="gameStart">start game</button>
+<h6 id="rule"class="show">Rules:</h6>
+<ul id="rule1"class="show">
+<li>Only type with small letters</li>
+<li>Timing is 30seconds only</li>
+</ul>
+<p id="text"></p>
+<input type="text"class="hide"id="colorInput"autofocus>
+<h5 id="board"class="gradialcolor"></h5>
+<h4 id="name"class="gradialColor"></h4>
+<input type="submit"value="submit"onmouseover="myfunction2();myfunction3();RandomColor();"class="hide"id="colorInputValid">
+</center>
+<script>
+function Startgame() {
+alert("Your 30 second time is Start");
+var n=window.prompt("Enter you name");
+document.getElementById("gameStart").className="hide";
+document.getElementById("colorInput").className="show";
+document.getElementById("colorInputValid").className="show";
+document.getElementById("gameTime").className="show";
+document.getElementById("score").className="show";
+document.getElementById("rule").className="hide";
+document.getElementById("rule1").className="hide";
+var seconds=document.getElementById("gameTime").textContent;
+var second=setInterval(function(){
+seconds--;
+document.getElementById("gameTime").textContent=seconds;
+if(seconds<=0)
+{
+document.getElementById("colorInput").className="hide";
+document.getElementById("colorInputValid").className="hide";
+document.getElementById("text").className="hide";
+var b=document.getElementById("board");
+document.getElementById("name").innerHTML=n;
+if(score>=10)
+{
+b.innerHTML="Well played Great Score";
+}
+else if(score>=5){
+b.innerHTML="Nice played";
+}
+else{
+b.innerHTML="Well playe Try to get high score";
+}
+clearInterval(second);}},1000);
+}
+var color=["red","pink","green","orange","yellow","blue","indigo","viloet"];
+var colorLength=color.length;
+var randomcolor,randomtext;
+function RandomColor() {
+randomcolor=Math.floor(Math.random()*colorLength);
+randomtext=Math.floor(Math.random()*colorLength);
+var text=document.getElementById("text");
+text.innerHTML=color[randomcolor];
+text.style.color=color[randomtext];
+}
+var score=0;
+function myfunction2(){
+var inputColor=document.getElementById("colorInput").value;
+if(inputColor==color[randomtext]){
+score +=1;
+}
+else {
+score +=0;
+}
+let a=document.getElementById("yourScore");
+a.innerHTML=score;
+}
+function myfunction3(){
+document.getElementById("colorInput").value="";
+}
+</script>
+</body>
+</html>
